@@ -49,7 +49,7 @@ A lightweight, fully responsive, and media-safe Tumblr theme and matching Custom
 1. Go to **Settings** → **Edit Appearance**.
 2. Scroll down to the **Pages** section and click **Add a page**.
 3. Toggle the option **Custom Layout** (HTML mode).
-4. Set the Page URL to `/navigation` or `/tags` (e.g., `[yourblog.tumblr.com/navigation](https://yourblog.tumblr.com/navigation)`).
+4. Set the Page URL to  `/tags` (e.g., `[yourblog.tumblr.com/tags](https://yourblog.tumblr.com/tags)`).
 5. Set the Page Title (e.g., *Nav & Tags*).
 6. Paste the provided Navigation Page code into the HTML editor.
 7. Click **Save**.
@@ -107,7 +107,7 @@ Um tema completo para Tumblr e página de navegação combinando, inspirados na 
 1. Vá em **Configurações** → **Editar Aparência**.
 2. Role até a seção **Páginas** e clique em **Adicionar uma página**.
 3. Ative a chave **Layout personalizado** (modo HTML).
-4. Defina a URL da página como `/navegacao` ou `/tags` (ex: `[seublog.tumblr.com/tags](https://seublog.tumblr.com/tags)`).
+4. Defina a URL da página como `/tags` (ex: `[seublog.tumblr.com/tags](https://seublog.tumblr.com/tags)`).
 5. Defina o Título da página (ex: *Navegação & Tags*).
 6. Cole o código fornecido da Página de Navegação no editor.
 7. Clique em **Salvar**.
