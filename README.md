@@ -4,6 +4,9 @@
 
 ---
 
+![screenshotLight](assets/mainThemeLight.jpg) ![navigationLight](assets/navigationLight.jpg)
+![screenshotDark](assets/mainThemeDark.jpg) ![navigationDark](assets/navigationDark.jpg)
+
 ## English
 
 A lightweight, fully responsive, and media-safe Tumblr theme and matching Custom Navigation Page inspired by the [Neobrutalism web design movement](https://neubrutalism.com/).
