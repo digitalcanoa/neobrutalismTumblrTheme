@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{Title}{block:PostTitle} — {PostTitle}{/block:PostTitle}</title>
+  <link rel="shortcut icon" href="{Favicon}">
+  <link rel="alternate" type="application/rss+xml" href="{RSS}">
+  {block:Description}<meta name="description" content="{MetaDescription}">{/block:Description}
+
+  <!-- ======================================================================
+            THEME OPTIONS - TUMBLR OPTIONS 
+       ====================================================================== -->
+  <!-- Sidebar Image option -->
+  <meta name="image:Sidebar" content="https://placehold.co/500x500/FFD23F/000000?text=Sidebar+Image">
+
+  <!-- Custom Text options for customizable links -->
+  <meta name="text:Custom Link 1 Label" content="Link 1">
+  <meta name="text:Custom Link 1 URL" content="#">
+  <meta name="text:Custom Link 2 Label" content="Link 2">
+  <meta name="text:Custom Link 2 URL" content="#">
+
+  <!-- Theme Colors -->
+  <meta name="color:Background" content="#FFFDF5">
+  <meta name="color:Accent" content="#FFD23F">
+  <meta name="color:Post Accent" content="#74B9FF">
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ====================================================================
+       STYLING
+       ==================================================================== */
+
+    :root {
+      --bg: {color:Background};
+      --accent: {color:Accent};
+      --post-accent: {color:Post Accent};
+      --ink: #000000;
+      --surface: #FFFFFF;
+      --surface-alt: #F6F1DC;
+      
+      --font-display: "Space Grotesk", sans-serif;
+      --font-body: "Inter", sans-serif;
+      --font-mono: "Space Mono", monospace;
+
+      --border: 3px solid var(--ink);
+      --border-thin: 2px solid var(--ink);
+      --shadow: 4px 4px 0px var(--ink);
+      --shadow-hover: 6px 6px 0px var(--ink);
+      
+      --post-width: 540px;
+      --sidebar-width: 220px;
+    }
+
+    /* MODO ESCURO */
+    body.dark-mode {
+      --bg: #121212;
+      --surface: #1E1E1E;
+      --surface-alt: #2A2A2A;
+      --ink: #FFFDF5;
+      --border: 3px solid var(--ink);
+      --border-thin: 2px solid var(--ink);
+      --shadow: 4px 4px 0px var(--ink);
+      --shadow-hover: 6px 6px 0px var(--ink);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    a {
+      color: var(--ink);
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 36px;
+      max-width: 860px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: var(--sidebar-width);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: sticky;
+      top: 30px;
+    }
+
+    .neo-box {
+      background: var(--surface);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    /* block 1: sidebar image */
+    .sidebar-block-image {
+      padding: 0;
+      overflow: hidden;
+    }
+    .sidebar-block-image img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    /* BLOCK 2: name and description*/
+    .sidebar-block-info {
+      background: var(--accent);
+      color: #000000;
+    }
+    .blog-title {
+      margin: 0 0 8px 0;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      line-height: 1.1;
+      text-transform: uppercase;
+      word-break: break-word;
+    }
+    .blog-title a {
+      text-decoration: none;
+      color: #000000;
+    }
+    .blog-description {
+      font-size: 0.85rem;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* BLOCK 3: links  */
+    .sidebar-block-nav {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, auto);
+      grid-auto-flow: column;
+      gap: 8px;
+      padding: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+
+    .nav-link {
+      display: block;
+      background: var(--surface);
+      color: var(--ink);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 6px 4px;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-link:hover {
+      background: var(--accent);
+      color: #000000;
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .nav-link:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px var(--ink);
+    }
+
+    /* BLOCK 4: search box */
+    .sidebar-block-search {
+      display: flex;
+      gap: 6px;
+      padding: 8px;
+    }
+    .search-input {
+      flex: 1;
+      width: 100%;
+      background: var(--surface);
+      color: var(--ink);
+      border: var(--border-thin);
+      padding: 6px 8px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      outline: none;
+    }
+    .search-input:focus {
+      background: var(--surface-alt);
+    }
+    .search-btn {
+      background: var(--accent);
+      color: #000000;
+      border: var(--border-thin);
+      box-shadow: 2px 2px 0px var(--ink);
+      padding: 6px 10px;
+      font-weight: bold;
+      font-family: var(--font-display);
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .search-btn:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0px var(--ink);
+    }
+
+    /* BLOCK 5: dark mode button */
+    .theme-toggle-btn {
+      width: 100%;
+      background: var(--surface);
+      color: var(--ink);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 8px;
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    .theme-toggle-btn:hover {
+      background: var(--accent);
+      color: #000000;
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* POSTS COLUMN */
+    .posts-column {
+      width: var(--post-width);
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .post {
+      background: var(--surface);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .post-header {
+      background: var(--post-accent);
+      color: #000000;
+      border-bottom: var(--border);
+      padding: 8px 16px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      text-transform: uppercase;
+    }
+
+    .post-content {
+      padding: 20px;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    /* PREVENTS EMBEDS EM REBLOGS */
+    .post-content iframe,
+    .post-content embed,
+    .post-content object,
+    .post-content video,
+    .post-content figure,
+    .post-content img,
+    .post-content .tmblr-embed,
+    .post-content .tmblr-full {
+      max-width: 100% !important;
+      box-sizing: border-box;
+    }
+
+    .post-content iframe {
+      width: 100% !important;
+      aspect-ratio: 16 / 9;
+      height: auto !important;
+    }
+
+    .post-title {
+      margin: 0 0 12px 0;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .post-footer {
+      background: var(--surface-alt);
+      border-top: var(--border);
+      padding: 10px 16px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .tag-item {
+      background: var(--accent);
+      color: #000000;
+      border: var(--border-thin);
+      padding: 2px 6px;
+      font-size: 0.7rem;
+      text-decoration: none;
+    }
+
+    /* PAGES */
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .pager-btn {
+      background: var(--surface);
+      color: var(--ink);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 8px 16px;
+      font-family: var(--font-display);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .pager-btn:hover {
+      background: var(--accent);
+      color: #000000;
+    }
+
+    @media (max-width: 800px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .sidebar, .posts-column {
+        width: 100%;
+        max-width: 540px;
+      }
+      .sidebar { position: static; }
+    }
+
+    {CustomCSS}
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- SIDEBAR (left) -->
+    <aside class="sidebar">
+
+      <!-- BLOCK 1: SIDEBAR IMAGEr -->
+      <div class="neo-box sidebar-block-image">
+        {block:IfSidebarImage}
+          <img src="{image:Sidebar}" alt="{Title}">
+        {/block:IfSidebarImage}
+        {block:IfNotSidebarImage}
+          <img src="https://placehold.co/500x500/FFD23F/000000?text=Sidebar+Image" alt="{Title}">
+        {/block:IfNotSidebarImage}
+      </div>
+
+      <!-- BLOCK 2: TITLE AND DESCRIPTION  -->
+      <div class="neo-box sidebar-block-info">
+        <h1 class="blog-title"><a href="/">{Title}</a></h1>
+        {block:Description}
+          <div class="blog-description">{Description}</div>
+        {/block:Description}
+      </div>
+
+      <!-- BLOCK 3: LINKS -->
+      <nav class="sidebar-block-nav">
+        <!-- Column 1 -->
+        <a href="/" class="nav-link">Home</a>
+        <a href="/ask" class="nav-link">Ask</a>
+        <a href="/archive" class="nav-link">Archive</a>
+
+        <!-- Column 2 -->
+        <a href="/tags" class="nav-link">Navigation</a>
+        <a href="{text:Custom Link 1 URL}" class="nav-link">{text:Custom Link 1 Label}</a>
+        <a href="{text:Custom Link 2 URL}" class="nav-link">{text:Custom Link 2 Label}</a>
+      </nav>
+
+      <!-- BLOCK 4: SEARCH BOX -->
+      <form action="/search" method="get" class="neo-box sidebar-block-search" role="search">
+        <input type="text" name="q" value="{SearchQuery}" placeholder="Pesquisar..." class="search-input" aria-label="Pesquisar">
+        <button type="submit" class="search-btn">🔍</button>
+      </form>
+
+      <!-- BLOCK 5: DARK MODE BUTTON -->
+      <button id="theme-toggle" class="theme-toggle-btn" type="button">
+        <span id="theme-icon">🌙</span> Dark Mode
+      </button>
+
+    </aside>
+
+    <!-- POSTS COLUMN -->
+    <main class="posts-column">
+
+      {block:Posts}
+      <article class="post">
+
+        <header class="post-header">
+          
+          {block:Date}<a href="{Permalink}" style="text-decoration:none; color:inherit;">{DayOfMonth} {ShortMonth} {Year}</a>{/block:Date}
+        </header>
+
+        <div class="post-content">
+          {block:Text}
+            {block:Title}<h2 class="post-title">{Title}</h2>{/block:Title}
+            {Body}
+          {/block:Text}
+
+          {block:Photo}
+            <img src="{PhotoURL-500}" alt="{PhotoAlt}">
+            {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+          {/block:Photo}
+
+          {block:Photoset}
+            {Photoset-500}
+            {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+          {/block:Photoset}
+
+          {block:Quote}
+            <blockquote style="font-family:var(--font-display); font-size:1.3rem; margin:0 0 10px 0;">"{Quote}"</blockquote>
+            {block:Source}<p>— {Source}</p>{/block:Source}
+          {/block:Quote}
+
+          {block:Link}
+            <h2 class="post-title"><a href="{URL}" {Target}>{Name} →</a></h2>
+            {block:Description}<div class="caption">{Description}</div>{/block:Description}
+          {/block:Link}
+
+          {block:Chat}
+            {block:Title}<h2 class="post-title">{Title}</h2>{/block:Title}
+            <ul style="list-style:none; padding:0;">
+              {block:Lines}
+                <li style="padding:6px 0; border-bottom:var(--border-thin);">
+                  {block:Label}<strong>{Label}</strong>{/block:Label} {Line}
+                </li>
+              {/block:Lines}
+            </ul>
+          {/block:Chat}
+
+          {block:Audio}
+            {AudioPlayer}
+            {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+          {/block:Audio}
+
+          {block:Video}
+            {Video-500}
+            {block:Caption}<div class="caption">{Caption}</div>{/block:Caption}
+          {/block:Video}
+
+          {block:Answer}
+            <p><strong>{Asker} asked:</strong> {Question}</p>
+            <div class="answer-body">{Answer}</div>
+          {/block:Answer}
+
+          {block:HasTags}
+            <div class="tags">
+              {block:Tags}<a href="{TagURL}" class="tag-item">#{Tag}</a>{/block:Tags}
+            </div>
+          {/block:HasTags}
+        </div>
+
+        <footer class="post-footer">
+          <a href="{Permalink}">Permalink</a>
+          {block:NoteCount}<span>{NoteCountWithLabel}</span>{/block:NoteCount}
+        </footer>
+
+      </article>
+      {/block:Posts}
+
+      {block:Pagination}
+      <nav class="pagination">
+        {block:PreviousPage}<a href="{PreviousPage}" class="pager-btn">← Newer</a>{/block:PreviousPage}
+        {block:NextPage}<a href="{NextPage}" class="pager-btn">Older →</a>{/block:NextPage}
+      </nav>
+      {/block:Pagination}
+
+    </main>
+
+  </div>
+
+  <!-- SCRIPT FOR DARK MODE -->
+  <script>
+    (function() {
+      var themeBtn = document.getElementById('theme-toggle');
+      var themeIcon = document.getElementById('theme-icon');
+
+      function setDarkTheme(isDark) {
+        if (isDark) {
+          document.body.classList.add('dark-mode');
+          if (themeIcon) themeIcon.textContent = '☀️';
+          try { localStorage.setItem('theme', 'dark'); } catch(e) {}
+        } else {
+          document.body.classList.remove('dark-mode');
+          if (themeIcon) themeIcon.textContent = '🌙';
+          try { localStorage.setItem('theme', 'light'); } catch(e) {}
+        }
+      }
+
+      var savedTheme = null;
+      try { savedTheme = localStorage.getItem('theme'); } catch(e) {}
+
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        setDarkTheme(true);
+      }
+
+      if (themeBtn) {
+        themeBtn.addEventListener('click', function() {
+          var isDark = document.body.classList.contains('dark-mode');
+          setDarkTheme(!isDark);
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
