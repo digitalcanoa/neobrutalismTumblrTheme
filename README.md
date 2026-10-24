@@ -20,7 +20,7 @@ A lightweight, fully responsive, and media-safe Tumblr theme and matching Custom
 * **Structured Sidebar Layout:**
 * Custom Sidebar Image box.
 * Blog Title & Description card.
-* 2-column x 3-row Navigation Links grid (Home, Ask, Archive, Submit, + 2 Custom Links).
+* 2-column x 3-row Navigation Links grid (Home, Ask, Archive, Navigation, + 2 Custom Links).
 * Built-in Search Bar.
 * Dark Mode switch.
 
@@ -78,7 +78,7 @@ Um tema completo para Tumblr e página de navegação combinando, inspirados na 
 * **Sidebar Estruturada:**
 * Bloco de Imagem da Sidebar.
 * Cartão de Título e Descrição do Blog.
-* Grade de Links em 2 Colunas x 3 Linhas (Início, Ask, Arquivo, Submit + 2 Links Customizáveis).
+* Grade de Links em 2 Colunas x 3 Linhas (Início, Ask, Arquivo, Navigation + 2 Links Customizáveis).
 * Caixa de Pesquisa integrada.
 * Alternador de Modo Escuro.
 
