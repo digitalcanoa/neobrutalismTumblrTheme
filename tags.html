@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{Title} — Navigation & Tags</title>
+  <link rel="shortcut icon" href="{Favicon}">
+  
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ====================================================================
+       NEOBRUTALISM DESIGN VARIABLES (LIGHT MODE DEFAULT)
+       ==================================================================== */
+    :root {
+      --bg: #FFFDF5;
+      --accent: #FF6B6B; /* CORAL */
+      --accent-secondary: #74B9FF; /* BLUE */
+      --ink: #000000;
+      --surface: #FFFFFF;
+      --surface-alt: #F6F1DC;
+      
+      --font-display: "Space Grotesk", sans-serif;
+      --font-body: "Inter", sans-serif;
+      --font-mono: "Space Mono", monospace;
+
+      --border: 3px solid var(--ink);
+      --border-thin: 2px solid var(--ink);
+      --shadow: 4px 4px 0px var(--ink);
+      --shadow-hover: 6px 6px 0px var(--ink);
+    }
+
+    /* AUTOMATIC SYSTEM DARK MODE FALLBACK */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #121212;
+        --surface: #1E1E1E;
+        --surface-alt: #2A2A2A;
+        --ink: #FFFDF5;
+      }
+    }
+
+    /* CHECKBOX OCULTO */
+    .theme-checkbox {
+      display: none;
+    }
+
+    /* MODO ESCURO EM TELA CHEIA VIA WRAPPER (SEM JAVASCRIPT E SEM :HAS) */
+    .theme-checkbox:checked ~ .page-wrapper {
+      --bg: #121212;
+      --surface: #1E1E1E;
+      --surface-alt: #2A2A2A;
+      --ink: #FFFDF5;
+      --border: 3px solid var(--ink);
+      --border-thin: 2px solid var(--ink);
+      --shadow: 4px 4px 0px var(--ink);
+      --shadow-hover: 6px 6px 0px var(--ink);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* COBRE TODA A LARGURA E ALTURA DA TELA */
+    .page-wrapper {
+      background-color: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      width: 100%;
+      padding: 40px 20px 60px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    a {
+      color: var(--ink);
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    /* CONTAINER CENTRALIZADO */
+    .page-container {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* STANDARD NEOBRUTALIST BOX */
+    .neo-box {
+      background: var(--surface);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+
+    /* TOP NAVIGATION BAR */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn, .theme-toggle-label {
+      background: var(--surface);
+      color: var(--ink);
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 8px 14px;
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      user-select: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .back-btn:hover, .theme-toggle-label:hover {
+      background: var(--accent);
+      color: #FFFFFF;
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* TOGGLE ICON SWITCHING */
+    .sun-icon { display: none; }
+    .moon-icon { display: inline; }
+
+    .theme-checkbox:checked ~ .page-wrapper .sun-icon { display: inline; }
+    .theme-checkbox:checked ~ .page-wrapper .moon-icon { display: none; }
+
+    /* SECTION 1: BLOGGER PROFILE */
+    .blogger-profile {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* LINHA SUPERIOR: AVATAR + NOME/HANDLE */
+    .blogger-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .blogger-avatar {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border: var(--border);
+      box-shadow: 3px 3px 0px var(--ink);
+      flex-shrink: 0;
+    }
+
+    .blogger-info-header {
+      background: var(--accent);
+      color: #FFFFFF;
+      border: var(--border-thin);
+      padding: 8px 16px;
+      display: inline-block;
+    }
+
+    .blogger-name {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      line-height: 1.1;
+    }
+
+    /* DESCRIÇÃO EM LARGURA TOTAL */
+    .blogger-bio {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      width: 100%;
+    }
+
+    /* QUICK DETAILS */
+    .blogger-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: var(--border-thin);
+    }
+
+    .detail-item {
+      background: var(--surface-alt);
+      color: var(--ink);
+      border: var(--border-thin);
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      font-family: var(--font-mono);
+    }
+
+    .detail-item strong {
+      display: block;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+
+    /* SECTION 2: TAG NAVIGATION INDEX */
+    .section-title {
+      background: var(--accent-secondary);
+      color: #000000;
+      border: var(--border);
+      box-shadow: var(--shadow);
+      padding: 10px 16px;
+      margin: 0 0 16px 0;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      display: inline-block;
+    }
+
+    .tag-category {
+      margin-bottom: 20px;
+    }
+
+    .tag-category:last-child {
+      margin-bottom: 0;
+    }
+
+    .category-name {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-link {
+      background: var(--surface);
+      color: var(--ink);
+      border: var(--border-thin);
+      box-shadow: 2px 2px 0px var(--ink);
+      padding: 6px 12px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .tag-link:hover {
+      background: var(--accent);
+      color: #FFFFFF;
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0px var(--ink);
+    }
+
+    .tag-link:active {
+      transform: translate(1px, 1px);
+      box-shadow: 1px 1px 0px var(--ink);
+    }
+
+    /* RESPONSIVENESS */
+    @media (max-width: 600px) {
+      .blogger-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .blogger-bio {
+        text-align: left;
+      }
+      .blogger-details {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hidden Checkbox for Pure CSS Dark Mode Switch -->
+  <input type="checkbox" id="theme-toggle" class="theme-checkbox">
+
+  <!-- Full-Screen Wrapper -->
+  <div class="page-wrapper">
+    <div class="page-container">
+
+      <!-- TOP BAR -->
+      <header class="top-bar">
+        <a href="/" class="back-btn">← Back to Blog</a>
+        
+        <label for="theme-toggle" class="theme-toggle-label">
+          <span class="moon-icon">🌙</span>
+          <span class="sun-icon">☀️</span>
+          Dark Mode
+        </label>
+      </header>
+
+      <!-- BLOCK 1: BLOGGER PROFILE -->
+      <section class="neo-box">
+        <div class="blogger-profile">
+          
+          <!-- Avatar + Name/Handle Line -->
+          <div class="blogger-header">
+            <img src="https://placehold.co/300x300/FF6B6B/FFFFFF?text=Avatar" alt="Avatar" class="blogger-avatar">
+            <div class="blogger-info-header">
+              <h1 class="blogger-name">Your Name / Handle</h1>
+            </div>
+          </div>
+
+          <!-- Bio (Full Width Below) -->
+          <p class="blogger-bio">
+            Write a brief introduction about yourself here, the purpose of your blog, your main interests, or the type of content you share.
+          </p>
+
+        </div>
+
+        <!-- Quick Details -->
+        <div class="blogger-details">
+          <div class="detail-item">
+            <strong>Pronouns</strong>
+            He / Him
+          </div>
+          <div class="detail-item">
+            <strong>Location</strong>
+            Brazil
+          </div>
+          <div class="detail-item">
+            <strong>Status</strong>
+            Active
+          </div>
+          <div class="detail-item">
+            <strong>Main Theme</strong>
+            Tech / Art
+          </div>
+        </div>
+      </section>
+
+      <!-- BLOCK 2: TAG NAVIGATION -->
+      <section class="neo-box">
+        <div class="section-title">📂 Tag Index</div>
+
+        <!-- CATEGORY 1 -->
+        <div class="tag-category">
+          <div class="category-name">📌 Main Content</div>
+          <div class="tag-grid">
+            <a href="/tagged/my-posts" class="tag-link">#my posts</a>
+            <a href="/tagged/writing" class="tag-link">#writing</a>
+            <a href="/tagged/photography" class="tag-link">#photography</a>
+            <a href="/tagged/design" class="tag-link">#design</a>
+            <a href="/tagged/projects" class="tag-link">#projects</a>
+          </div>
+        </div>
+
+        <!-- CATEGORY 2 -->
+        <div class="tag-category">
+          <div class="category-name">🎬 Media & Entertainment</div>
+          <div class="tag-grid">
+            <a href="/tagged/movies" class="tag-link">#movies</a>
+            <a href="/tagged/music" class="tag-link">#music</a>
+            <a href="/tagged/books" class="tag-link">#books</a>
+            <a href="/tagged/gaming" class="tag-link">#gaming</a>
+            <a href="/tagged/tv-shows" class="tag-link">#tv shows</a>
+          </div>
+        </div>
+
+        <!-- CATEGORY 3 -->
+        <div class="tag-category">
+          <div class="category-name">💬 Personal & Misc</div>
+          <div class="tag-grid">
+            <a href="/tagged/studies" class="tag-link">#studies</a>
+            <a href="/tagged/recommendations" class="tag-link">#recommendations</a>
+            <a href="/tagged/personal" class="tag-link">#personal</a>
+            <a href="/tagged/answers" class="tag-link">#answers</a>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </div>
+
+</body>
+</html>
